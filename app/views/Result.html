@@ -1,0 +1,84 @@
+<div ng-controller="ResultController">
+
+    <div id="search-result">
+
+        <div class="container">
+
+            <!-- Albums -->
+
+            <div class="search-result-container" ng-show="reducedAlbums.length > 0">
+
+                <div class="row search-result-container-header">
+                    <h3 style="font-weight: bold">Albums</h3>
+                </div>
+
+                <div class="row search-result-row"
+                     ng-include="'app/views/ResultAlbum.html'"
+                     ng-repeat="album in reducedAlbums"></div>
+
+                <a href="javascript:void(0)" ng-show="hasMoreAlbums" ng-click="toggleMoreAlbums()">
+                    <span ng-show="!showMoreAlbums">More...</span>
+                    <span ng-show="showMoreAlbums">Less...</span>
+                </a>
+
+                <div ng-show="showMoreAlbums" style="padding-top: 12px">
+                    <div class="row search-result-row"
+                         ng-include="'app/views/ResultAlbum.html'"
+                         ng-repeat="album in moreAlbums"></div>
+                </div>
+
+            </div>
+
+            <!-- Artists -->
+            <div class="search-result-container" ng-show="reducedArtists.length > 0">
+
+                <div class="row search-result-container-header">
+                    <h3 style="font-weight: bold">Artists</h3>
+                </div>
+
+                <div class="row search-result-row"
+                     ng-include="'app/views/ResultArtist.html'"
+                     ng-repeat="artist in reducedArtists"></div>
+
+                <a href="javascript:void(0)" ng-show="hasMoreArtists" ng-click="toggleMoreArtists()">
+                    <span ng-show="!showMoreArtists">More...</span>
+                    <span ng-show="showMoreArtists">Less...</span>
+                </a>
+
+                <div ng-show="showMoreArtists" style="padding-top: 12px">
+                    <div class="row search-result-row"
+                         ng-include="'app/views/ResultArtist.html'"
+                         ng-repeat="artist in moreArtists"></div>
+                </div>
+
+            </div>
+
+            <!-- Tracks -->
+            <div class="search-result-container" ng-show="reducedTracks.length > 0">
+
+                <div class="row search-result-container-header">
+                    <h3 style="font-weight: bold">Tracks</h3>
+                </div>
+
+                <div class="row search-result-row"
+                     ng-include="'app/views/ResultTrack.html'"
+                     ng-repeat="track in reducedTracks"></div>
+
+                <a href="javascript:void(0)" ng-show="hasMoreTracks" ng-click="toggleMoreTracks()">
+                    <span ng-show="!showMoreTracks">More...</span>
+                    <span ng-show="showMoreTracks">Less...</span>
+                </a>
+
+                <div ng-show="showMoreTracks" style="padding-top: 12px">
+                    <div class="row search-result-row"
+                         ng-include="'app/views/ResultTrack.html'"
+                         ng-repeat="track in moreTracks"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

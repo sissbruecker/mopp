@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>mopp</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/footer.css" rel="stylesheet">
+    <link href="css/result.css" rel="stylesheet">
+</head>
+<body>
+
+<div ng-include="'app/views/Header.html'"></div>
+
+<div ng-include="'app/views/Result.html'"></div>
+
+<div ng-include="'app/views/Footer.html'"></div>
+
+<script src="lib/jquery-1.10.2.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="lib/mopidy.js"></script>
+<script src="lib/angular.min.js"></script>
+
+<script src="app/Configuration.js"></script>
+
+<script src="app/directives/EnterDirective.js"></script>
+
+<script src="app/models/MopidyModel.js"></script>
+<script src="app/services/BindService.js"></script>
+<script src="app/services/MopidyService.js"></script>
+
+<script src="app/views/HeaderController.js"></script>
+<script src="app/views/FooterController.js"></script>
+<script src="app/views/ResultController.js"></script>
+
+</body>
+</html>

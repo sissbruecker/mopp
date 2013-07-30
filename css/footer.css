@@ -1,0 +1,15 @@
+#footer .navbar-inner {
+     padding: 8px;
+     min-height: 0;
+ }
+
+#footer .navbar-inner {
+
+    padding: 8px;
+    height: 40px;
+}
+
+#footer .commands {
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
