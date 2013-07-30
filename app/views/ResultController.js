@@ -64,7 +64,7 @@ angular.module('app').controller('ResultController', function ($scope, bind, mop
         $scope.showMoreAlbums = !$scope.showMoreAlbums;
     };
 
-    $scope.toggleMoreAlbums = function () {
+    $scope.toggleMoreArtists = function () {
         $scope.showMoreArtists = !$scope.showMoreArtists;
     };
 
