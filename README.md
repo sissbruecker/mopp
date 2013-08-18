@@ -7,9 +7,9 @@ Right now it can display your playlists and has a search function.
 
 Screenshots:
 
-<img src="https://github.com/sissbruecker/mopp/blob/master/screenshots/playlist.png">
+<img src="https://raw.github.com/sissbruecker/mopp/master/screenshots/playlists.png">
 
-<img src="https://github.com/sissbruecker/mopp/blob/master/screenshots/search.png">
+<img src="https://raw.github.com/sissbruecker/mopp/master/screenshots/search.png">
 
 The client uses a responsive design, but is mainly designed for mobile use.
 
