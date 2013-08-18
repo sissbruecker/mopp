@@ -15,7 +15,7 @@
                            ng-model="searchText" ng-enter="search()">
 
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" ng-click="search()">
                             <i class="icon-search" ng-show="!isLoading"></i>
                             <i class="icon-refresh loading" ng-show="isLoading"></i>
                         </button>
