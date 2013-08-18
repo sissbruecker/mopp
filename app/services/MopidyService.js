@@ -8,9 +8,13 @@
 angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopidyModel) {
 
     // Initialize mopidy client
+    var mopidy = new Mopidy();
+
+/*
     var mopidy = new Mopidy({
         webSocketUrl: "ws://192.168.178.27/mopidy/ws/"
     });
+*/
 
     // Log all events
     mopidy.on(function (message) {
