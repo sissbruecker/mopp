@@ -1,15 +1,12 @@
-#footer .navbar-inner {
-     padding: 8px;
-     min-height: 0;
+#footer {
+    padding: 8px;
  }
 
-#footer .navbar-inner {
-
-    padding: 8px;
-    height: 40px;
+#footer .row {
+    position: relative;
 }
 
-#footer .commands {
-    margin-top: 5px;
-    margin-bottom: 8px;
+#footer .btn-toolbar {
+    position: absolute;
+    right: 0;
 }

@@ -11,13 +11,12 @@
     <link href="css/app.css" rel="stylesheet">
     <link href="css/header.css" rel="stylesheet">
     <link href="css/footer.css" rel="stylesheet">
-    <link href="css/result.css" rel="stylesheet">
+    <link href="css/content.css" rel="stylesheet">
+    <link href="css/loader.css" rel="stylesheet">
 </head>
 <body>
 
-<div ng-include="'app/views/Header.html'"></div>
-
-<div ng-include="'app/views/Result.html'"></div>
+<div ng-view></div>
 
 <div ng-include="'app/views/Footer.html'"></div>
 
@@ -37,7 +36,8 @@
 
 <script src="app/views/HeaderController.js"></script>
 <script src="app/views/FooterController.js"></script>
-<script src="app/views/ResultController.js"></script>
+<script src="app/views/SearchController.js"></script>
+<script src="app/views/PlaylistsController.js"></script>
 
 </body>
 </html>

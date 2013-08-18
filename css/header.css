@@ -1,6 +1,17 @@
 #header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 
-    padding-top: 20px;
-    padding-bottom: 20px;
-    background: #eee;
+.header-nav {
+    position: absolute;
+    border-right: solid 1px #7a62d3;
+    padding: 5px 15px 5px 5px;
+}
+
+.header-content {
+    margin-left: 75px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
 }

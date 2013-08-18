@@ -5,12 +5,14 @@
  * Time: 11:10
  * To change this template use File | Settings | File Templates.
  */
-angular.module('app').controller('ResultController', function ($scope, bind, mopidy, mopidyModel) {
+angular.module('app').controller('SearchController', function ($scope, bind, mopidy, mopidyModel) {
 
     // Reduced number of results, so we don't display too many items initially
     var reducedAlbumCount = 5;
     var reducedArtistCount = 5;
     var reducedTrackCount = 20;
+
+    $scope.searchText = '';
 
     $scope.hasMoreAlbums = false;
     $scope.hasMoreArtists = false;
@@ -20,8 +22,12 @@ angular.module('app').controller('ResultController', function ($scope, bind, mop
     $scope.showMoreArtists = false;
     $scope.showMoreTracks = false;
 
+    $scope.isLoading = false;
+
     // Bind/Watch search result
     bind(mopidyModel, 'searchResult').to($scope).notify(function(results) {
+
+        $scope.isLoading = false;
 
         if(!results) {
             return;
@@ -60,6 +66,15 @@ angular.module('app').controller('ResultController', function ($scope, bind, mop
 
     });
 
+    $scope.search = function () {
+
+        if (!$scope.searchText || !$scope.searchText.length) return;
+
+        $scope.isLoading = true;
+
+        mopidy.search($scope.searchText);
+    };
+
     $scope.toggleMoreAlbums = function () {
         $scope.showMoreAlbums = !$scope.showMoreAlbums;
     };
@@ -73,15 +88,7 @@ angular.module('app').controller('ResultController', function ($scope, bind, mop
     };
 
     $scope.play = function (uri) {
-
-        // Clear tracklist, load tracks, add to list and start playing
-        mopidy.clear().then(function () {
-            mopidy.lookup(uri).then(function (tracks) {
-                mopidy.addTracks(tracks).then(function () {
-                    mopidy.play();
-                });
-            });
-        });
+        mopidy.playUri(uri);
     };
 
 });

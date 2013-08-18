@@ -1,0 +1,128 @@
+<div ng-controller="SearchController">
+
+    <div id="header" class="navbar navbar-fixed-top">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="header-nav" ng-include="'app/views/HeaderNavigation.html'"></div>
+
+                <div class="input-group header-content">
+
+                    <input type="text" class="form-control" placeholder="Search..."
+                           x-webkit-speech lang="en"
+                           ng-model="searchText" ng-enter="search()">
+
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary">
+                            <i class="icon-search" ng-show="!isLoading"></i>
+                            <i class="icon-refresh loading" ng-show="isLoading"></i>
+                        </button>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="content">
+
+        <div class="container">
+
+            <!-- Albums -->
+
+            <div class="content-area" ng-show="reducedAlbums.length > 0">
+
+                <div class="row content-header">
+                    <span class="text-muted">ALBUMS</span>
+                    <hr>
+                </div>
+
+                <div class="row content-item"
+                     ng-include="'app/views/AlbumItem.html'"
+                     ng-repeat="album in reducedAlbums"></div>
+
+                <div class="row">
+                    <button type="button" class="btn btn-default"
+                            ng-show="hasMoreAlbums && !showMoreAlbums" ng-click="toggleMoreAlbums()">More...
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            ng-show="hasMoreAlbums && showMoreAlbums" ng-click="toggleMoreAlbums()">Less...
+                    </button>
+                </div>
+
+                <div ng-show="showMoreAlbums">
+                    <div class="row content-item"
+                         ng-include="'app/views/AlbumItem.html'"
+                         ng-repeat="album in moreAlbums"></div>
+                </div>
+
+            </div>
+
+            <!-- Artists -->
+            <div class="content-area" ng-show="reducedArtists.length > 0">
+
+                <div class="row content-header">
+                    <span class="text-muted">ARTISTS</span>
+                    <hr>
+                </div>
+
+                <div class="row content-item"
+                     ng-include="'app/views/ArtistItem.html'"
+                     ng-repeat="artist in reducedArtists"></div>
+
+                <div class="row">
+                    <button type="button" class="btn btn-default"
+                            ng-show="hasMoreArtists && !showMoreArtists" ng-click="toggleMoreArtists()">More...
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            ng-show="hasMoreArtists && showMoreArtists" ng-click="toggleMoreArtists()">Less...
+                    </button>
+                </div>
+
+                <div ng-show="showMoreArtists">
+                    <div class="row content-item"
+                         ng-include="'app/views/ArtistItem.html'"
+                         ng-repeat="artist in moreArtists"></div>
+                </div>
+
+            </div>
+
+            <!-- Tracks -->
+            <div class="content-area" ng-show="reducedTracks.length > 0">
+
+                <div class="row content-header">
+                    <span class="text-muted">TRACKS</span>
+                    <hr>
+                </div>
+
+                <div class="row content-item"
+                     ng-include="'app/views/TrackItem.html'"
+                     ng-repeat="track in reducedTracks"></div>
+
+                <div class="row">
+                    <button type="button" class="btn btn-default"
+                            ng-show="hasMoreTracks && !showMoreTracks" ng-click="toggleMoreTracks()">More...
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            ng-show="hasMoreTracks && showMoreTracks" ng-click="toggleMoreTracks()">Less...
+                    </button>
+                </div>
+
+                <div ng-show="showMoreTracks">
+                    <div class="row content-item"
+                         ng-include="'app/views/TrackItem.html'"
+                         ng-repeat="track in moreTracks"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

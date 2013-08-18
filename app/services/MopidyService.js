@@ -13,7 +13,7 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
     });
 
     // Log all events
-    mopidy.on(function(message) {
+    mopidy.on(function (message) {
         console.log(message);
     });
 
@@ -22,6 +22,7 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
         this.getCurrentTrack();
         this.getCurrentState();
         this.getCurrentVolume();
+        this.getPlaylists();
     }.bind(this));
 
     mopidy.on('event:trackPlaybackStarted', function () {
@@ -81,7 +82,7 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
         return d.promise;
     };
 
-    this.play = function (track) {
+    this.play = function () {
 
         var d = $q.defer();
 
@@ -92,6 +93,20 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
         }, handleError);
 
         return d.promise;
+    };
+
+    this.playUri = function (uri) {
+
+        mopidyModel.currentUri = uri;
+
+        // Clear tracklist, load tracks, add to list and start playing
+        this.clear().then(function () {
+            this.lookup(uri).then(function (tracks) {
+                this.addTracks(tracks).then(function () {
+                    this.play();
+                }.bind(this));
+            }.bind(this));
+        }.bind(this));
     };
 
     this.pause = function () {
@@ -146,7 +161,7 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
         return d.promise;
     };
 
-    this.increaseVolume = function() {
+    this.increaseVolume = function () {
 
         var d = $q.defer();
 
@@ -161,7 +176,7 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
         return d.promise;
     };
 
-    this.decreaseVolume = function() {
+    this.decreaseVolume = function () {
 
         var d = $q.defer();
 
@@ -240,12 +255,37 @@ angular.module('app').service('mopidy', function ($rootScope, $q, $timeout, mopi
 
     // endregion
 
-    var handleError = function(error) {
+    // region Playlists
+
+    this.getPlaylists = function () {
+
+        var d = $q.defer();
+
+        if (!mopidyModel.playlists) {
+
+            mopidy.playlists.getPlaylists().then(function (playlists) {
+                $timeout(function () {
+                    mopidyModel.playlists = playlists;
+                    d.resolve(playlists);
+                });
+            }, handleError);
+        } else {
+            $timeout(function () {
+                d.resolve(mopidyModel.playlists);
+            });
+        }
+
+        return d.promise;
+    };
+
+    // endregion
+
+    var handleError = function (error) {
         console.error(error.message);
 
-        if(error.event)
+        if (error.event)
             console.error(JSON.stringify(error.event));
-        if(error.closeEvent)
+        if (error.closeEvent)
             console.error(JSON.stringify(error.closeEvent));
     }
 });

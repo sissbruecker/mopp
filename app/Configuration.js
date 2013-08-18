@@ -7,4 +7,10 @@
  */
 
 // Create angular module
-angular.module('app', []);
+angular.module('app', []).config(function ($routeProvider) {
+
+    $routeProvider
+        .when('/search', { templateUrl: 'app/views/Search.html' })
+        .when('/playlists', { templateUrl: 'app/views/Playlists.html' })
+        .otherwise({ redirectTo: '/playlists'});
+});

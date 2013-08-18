@@ -1,0 +1,13 @@
+<div class="content-item-action">
+    <button type="button" class="btn content-action" ng-class="{ 'btn-default': !playlist.playing, 'btn-primary': playlist.playing}" ng-click="play(playlist.uri)">
+        <i class="icon-play"></i>
+    </button>
+</div>
+
+<div class="content-item-display">
+    <div>{{ playlist.name }}</div>
+
+    <small class="text-muted">{{ playlist.tracks.length }} Tracks</small>
+</div>
+
+<div class="clearfix"></div>
