@@ -12,7 +12,7 @@
 
                     <input type="text" class="form-control" placeholder="Filter..."
                            x-webkit-speech lang="en"
-                           ng-model="filterText">
+                           ng-model="filterText" ng-escape="filterText = ''">
 
                     <span class="input-group-btn">
                         <button type="button" class="btn btn-primary"
@@ -32,17 +32,35 @@
 
         <div class="container">
 
-            <div class="row content-header">
-                <span class="text-muted">PLAYLISTS</span>
-                <span class="text-muted">&nbsp;</span>
-                <i class="icon-refresh loading" ng-show="isLoading"></i>
-                <hr>
+            <!-- Recent playlists -->
+            <div class="content-area" ng-show="recentPlaylists.length > 0">
+
+                <div class="row content-header">
+                    <span class="text-muted">RECENT</span>
+                    <hr>
+                </div>
+
+                <div class="row content-item"
+                     ng-include="'app/views/PlaylistItem.html'"
+                     ng-repeat="playlist in recentPlaylists" ng-show="playlist.visible"></div>
+
             </div>
 
-            <div class="row content-item"
-                 ng-include="'app/views/PlaylistItem.html'"
-                 ng-repeat="playlist in playlists" ng-show="playlist.visible"></div>
+            <!-- All playlists -->
+            <div class="content-area">
 
+                <div class="row content-header">
+                    <span class="text-muted">PLAYLISTS</span>
+                    <span class="text-muted">&nbsp;</span>
+                    <i class="icon-refresh loading" ng-show="isLoading"></i>
+                    <hr>
+                </div>
+
+                <div class="row content-item"
+                     ng-include="'app/views/PlaylistItem.html'"
+                     ng-repeat="playlist in playlists" ng-show="playlist.visible"></div>
+
+            </div>
         </div>
 
     </div>

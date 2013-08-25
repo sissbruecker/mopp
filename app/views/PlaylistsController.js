@@ -5,15 +5,13 @@
  * Time: 13:09
  * To change this template use File | Settings | File Templates.
  */
-angular.module('app').controller('PlaylistsController', function ($scope, bind, mopidy, mopidyModel) {
+angular.module('app').controller('PlaylistsController', function ($scope, bind, mopidy, storage, mopidyModel) {
 
     $scope.filterText = '';
 
     $scope.isLoading = true;
 
-    var SORT_INDEX = 'sort_index';
-    var SORT_NAME = 'sort_name';
-
+    // Sorting
     var compareByIndex = function(item1, item2) {
         return item1.index > item2.index ? 1 : (item1.index < item2.index ? -1 : 0);
     };
@@ -55,8 +53,9 @@ angular.module('app').controller('PlaylistsController', function ($scope, bind, 
 
     $scope.sort = sorts[0];
 
+    // Bind playlists
     bind(mopidyModel, 'playlists').to($scope).notify(function () {
-        refreshIndex();
+        refreshDisplayState();
         refreshVisibility();
         refreshPlayingState();
         refreshSort();
@@ -73,13 +72,17 @@ angular.module('app').controller('PlaylistsController', function ($scope, bind, 
         refreshVisibility();
     });
 
-    var refreshIndex = function () {
+    // Add recent playlists to scope
+    $scope.recentPlaylists = storage.getRecentPlaylists().concat();
+
+    var refreshDisplayState = function () {
 
         if (!$scope.playlists) return;
 
         $.each($scope.playlists, function (i, playlist) {
 
             playlist.index = i;
+            playlist.trackCount = playlist.tracks.length;
         });
     };
 
@@ -91,21 +94,36 @@ angular.module('app').controller('PlaylistsController', function ($scope, bind, 
 
             playlist.playing = mopidyModel.currentUri == playlist.uri;
         });
+
+        $.each($scope.recentPlaylists, function (i, playlist) {
+
+            playlist.playing = mopidyModel.currentUri == playlist.uri;
+        });
     };
 
     var refreshVisibility = function () {
 
-        if (!$scope.playlists) return;
-
         var filter = $scope.filterText.toLowerCase();
 
-        $.each($scope.playlists, function (i, playlist) {
+        if($scope.playlists) {
+
+            $.each($scope.playlists, function (i, playlist) {
+
+                playlist.visible = true;
+
+                if (filter && filter.length > 0)
+                    playlist.visible = playlist.visible && (playlist.name.toLowerCase().indexOf(filter) >= 0);
+            });
+        }
+
+        $.each($scope.recentPlaylists, function (i, playlist) {
 
             playlist.visible = true;
 
             if (filter && filter.length > 0)
                 playlist.visible = playlist.visible && (playlist.name.toLowerCase().indexOf(filter) >= 0);
         });
+
     };
 
     var refreshSort = function () {
@@ -126,8 +144,14 @@ angular.module('app').controller('PlaylistsController', function ($scope, bind, 
         refreshSort();
     };
 
-    $scope.play = function (uri) {
-        mopidy.playUri(uri);
+    $scope.play = function (playlist) {
+
+        mopidy.playUri(playlist.uri);
+
+        storage.addRecentPlaylist(playlist);
     };
+
+    // Create initial visibility for recent playlists
+    refreshVisibility();
 
 });
